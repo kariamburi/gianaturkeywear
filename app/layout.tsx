@@ -11,8 +11,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Pama",
-  description: "Pama | Buy Pure Turkey Ware in Kenya",
+  title: "PGiana Turkey Wear",
+  description: "Giana Turkey Wear | Buy Pure Turkey Ware in Kenya",
   icons: {
     icon: "/assets/images/logo.png",
   },
