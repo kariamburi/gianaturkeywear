@@ -48,6 +48,7 @@
     "embla-carousel": "^8.2.0",
     "embla-carousel-autoplay": "^8.2.0",
     "embla-carousel-react": "^8.1.8",
+    "firebase": "^12.12.1",
     "https-localhost": "^4.7.1",
     "init": "^0.1.2",
     "js-cookie": "^3.0.5",

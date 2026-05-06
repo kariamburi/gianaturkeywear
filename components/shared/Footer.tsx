@@ -154,7 +154,7 @@ const Footer = ({ comp }: MobileProps) => {
       <div className="border-t border-gray-300 p-2 mt-3"></div>
       <div className="flex flex-col items-center justify-center">
         <p className="text-xs font-bold">
-          {currentYear} Pama. All Rights reserved.
+          {currentYear}  Giana Turkey Wear. All Rights reserved.
         </p>
         <p className="text-[8px] lg:text-xs">
           Powered by{" "}

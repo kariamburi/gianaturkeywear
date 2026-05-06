@@ -26,10 +26,10 @@ export default function Header() {
     >
       <div className="mb-4 lg:mx-auto text-center">
         <h1 className="text-xs lg:text-2xl text-gray-800 font-bold mb-0">
-          Welcome to Turkey Wear
+          Discover Elegant Fashion
         </h1>
         <p className="text-[12px] lg:text-base text-gray-500">
-          Explore the best collections curated for you!
+          Shop beautiful collections curated to match your style.
         </p>
       </div>
       <div className="gap-1 lg:mx-auto text-center">

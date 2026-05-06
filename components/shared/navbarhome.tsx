@@ -27,14 +27,13 @@ import {
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
-import { db } from "@/lib/firebase";
 import Image from "next/image";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import Header from "@/components/shared/Header";
 import RoomOutlinedIcon from "@mui/icons-material/RoomOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
-import ChatBubbleOutlinedIcon from "@mui/icons-material/ChatBubbleOutlined";
+
 //import Unreadmessages from "./Unreadmessages";
 
 import {
@@ -159,35 +158,7 @@ export default function Navbarhome({ userstatus, userId, comp }: NavProps) {
                 </Tooltip>
               </TooltipProvider>
             </div>
-            {/*
-            <div
-              className="w-10 h-10 flex border hover:shadow-[0px_4px_20px_rgba(0,0,0,0.3)] items-center justify-center rounded-full bg-white tooltip tooltip-bottom hover:cursor-pointer"
-              data-tip="Messages"
-              onClick={() => router.push(`/chat/`)}
-            >
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div className="relative flex items-center justify-center">
-                      <ChatBubbleOutlinedIcon className="absolute" />
-                      <div className="absolute z-10">
-                        <Unreadmessages userId={userId} />
-                      </div>
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <div
-                      onClick={() => router.push(`/chat/`)}
-                      className="flex gap-1"
-                    >
-                      Chats
-                      <Unreadmessages userId={userId} />
-                    </div>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
- */}
+
             <div className="mr-2 ml-2">
               <SignedIn>
                 {userstatus === "Admin" && (

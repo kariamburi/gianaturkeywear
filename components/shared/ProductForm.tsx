@@ -20,6 +20,7 @@ import { ProductSchema } from "@/lib/validator";
 import { IProduct } from "@/lib/database/models/product.model";
 import { usePathname, useRouter } from "next/navigation";
 import CircularProgressWithLabel from "./CircularProgressWithLabel";
+
 import {
   CATEGORIES,
   COLORS,
@@ -39,6 +40,7 @@ import { useToast } from "../ui/use-toast";
 import ProductQRCode from "./ProductQRCode";
 import ProductQRwindow from "./ProductQRwindow";
 import { SoldConfirmation } from "./SoldConfirmation";
+import { uploadProductImageToFirebase } from "@/lib/firebaseStorage";
 // Infer the form data type from Zod schema
 type ProductFormData = z.infer<typeof ProductSchema>;
 type ProductFormProps = {
@@ -70,7 +72,7 @@ export const ProductForm = ({
     resolver: zodResolver(ProductSchema),
     defaultValues: initialValues,
   });
-  const { startUpload } = useUploadThing("imageUploader");
+
   let uploadedImageUrl: string[] = [];
   const parseCurrencyToNumber = (value: string): number => {
     // Remove any commas from the string and convert to number
@@ -92,11 +94,15 @@ export const ProductForm = ({
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         try {
-          const uploadedImages = await startUpload([file]);
-          if (uploadedImages && uploadedImages.length > 0) {
-            uploadedImageUrl.push(uploadedImages[0].url);
-            setUploadProgress(Math.round(((1 + i) / files.length) * 100));
-          }
+          const url = await uploadProductImageToFirebase(file, userId, (progress) => {
+            const totalProgress = Math.round(
+              ((i + progress / 100) / files.length) * 100
+            );
+
+            setUploadProgress(totalProgress);
+          });
+
+          uploadedImageUrl.push(url);
         } catch (error) {
           console.error("Error uploading file:", error);
         }

@@ -90,28 +90,28 @@ export default async function Home({ searchParams }: SearchParamProps) {
     <main>
       <div className="min-h-screen bg-gray-100">
         <Head>
-          <title>Pama | Buy Pure Turkey Wear in Kenya</title>
+          <title> Giana Turkey Wear | Buy Pure Turkey Wear in Kenya</title>
           <meta
             name="description"
-            content="Pama is Kenya's premier online store specializing in Pure Turkey wear. Shop for the best quality clothes and accessories at affordable prices."
+            content="Giana Turkey Wear is Kenya's premier online store specializing in Pure Turkey wear. Shop for the best quality clothes and accessories at affordable prices."
           />
           <meta
             property="og:title"
-            content="Pama | Pure Turkey Wear Store in Kenya"
+            content="Giana Turkey Wear | Pure Turkey Wear Store in Kenya"
           />
           <meta
             property="og:description"
-            content="Pama offers the finest Pure Turkey wear in Kenya. Browse our selection of high-quality clothes, and accessories available for delivery nationwide."
+            content="Giana Turkey Wear offers the finest Pure Turkey wear in Kenya. Browse our selection of high-quality clothes, and accessories available for delivery nationwide."
           />
           <meta property="og:image" content="/assets/images/logo.png" />
-          <meta property="og:url" content="https://pama.co.ke" />
+          <meta property="og:url" content="https://gianaturkeywear.co.ke" />
           <meta property="og:type" content="website" />
           <meta
             name="keywords"
-            content="Pama, Pure Turkey wear, Turkey collections, Turkey clothes,Turkey accessories, Kenya"
+            content="Giana Turkey Wear, Pure Turkey wear, Turkey collections, Turkey clothes,Turkey accessories, Kenya"
           />
-          <meta name="author" content="Pama" />
-          <link rel="canonical" href="https://pama.co.ke" />
+          <meta name="author" content="Giana Turkey Wear" />
+          <link rel="canonical" href="https://gianaturkeywear.co.ke" />
         </Head>
 
         <div className="w-full h-full">
@@ -310,12 +310,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
 
           <footer className="bg-white lg:bg-gray-100 border-t">
             <Footer comp={comp} />
-            {/*<div className="hidden lg:inline">
-    <Footer comp={comp} />
-  </div>
-   <div className="lg:hidden">
-    <BottomNavigation userId={userId} />
-  </div>*/}
+
           </footer>
         </div>
       </div>
