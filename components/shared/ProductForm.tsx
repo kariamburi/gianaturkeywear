@@ -158,6 +158,44 @@ export const ProductForm = ({
           router.push(pathname);
         }
       }
+
+      else if (type === "Update") {
+        const updateId = productId || product?._id?.toString();
+
+        if (!updateId) {
+          throw new Error("Product ID is missing");
+        }
+
+        const updatedProduct = await updateProduct({
+          userId,
+          product: {
+            ...values,
+            _id: updateId,
+            price: parseCurrencyToNumber(form.getValues("price").toString()),
+            buyprice: parseCurrencyToNumber(form.getValues("buyprice").toString()),
+
+            // Keeps existing images + adds newly uploaded Firebase images
+            imageUrls: uploadedImageUrl.filter(
+              (url) => url && !url.includes("blob:")
+            ),
+          },
+          path: pathname,
+        });
+
+        if (updatedProduct) {
+          setFiles([]);
+          setUploadProgress(0);
+
+          toast({
+            title: "Updated!",
+            description: "Product updated successfully",
+            duration: 5000,
+            className: "bg-[#30AF5B] text-white",
+          });
+
+          router.push(pathname);
+        }
+      }
     } catch (error: any) {
       console.error("Product submit error:", error);
 
