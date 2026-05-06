@@ -10,7 +10,7 @@ import Link from "next/link";
 
 import MenuSubmobile from "@/components/shared/MenuSubmobile";
 //import Collection from "@/components/shared/Collection";
-import { createUser, getUserDetails } from "@/lib/actions/user.actions";
+import { createUser, getUserDetails, updateGianaBusinessInfo } from "@/lib/actions/user.actions";
 import { getfcmTokenFromCookie } from "@/lib/actions/cookies";
 import AppPopup from "@/components/shared/AppPopup ";
 import { getAllProducts } from "@/lib/actions/ad.product";
@@ -73,7 +73,8 @@ export default async function Home({ searchParams }: SearchParamProps) {
   const [minPrice, maxPrice] = price.split("-");
 
   const feedback = product ? gender + "-" + product : "Product";
-  //const seed = await seedUsers();
+  //const seed = await updateGianaBusinessInfo();
+  //console.log(seed);
   const company = await getUserDetails(userId);
 
   const comp = company.adminUser;

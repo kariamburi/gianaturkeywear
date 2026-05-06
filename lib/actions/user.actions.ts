@@ -9,7 +9,67 @@ import { handleError } from '@/lib/utils'
 
 import { CreateUserParams, UpdateUserParams, UpdateUserSetingsParams, UpdateUserToken } from '@/types'
 
+export async function updateGianaBusinessInfo() {
+  try {
+    await connectToDatabase();
 
+    const businessInfo = {
+      status: "Admin",
+      businessname: "Giana Turkey Wear",
+      aboutbusiness: "Elegant Turkey fashion wear and ladies collections.",
+      businessaddress: "Nairobi CBD, Kenya",
+      latitude: "-1.2827827",
+      longitude: "36.8231172",
+      businessworkingdays: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ],
+      phone: "+254705912478",
+      whatsapp: "+254705912478",
+      website: "gianaturkeywear.co.ke",
+      facebook: "https://www.facebook.com/profile.php?id=100087734697007&rdid=yptCfKGXsfRCoRqj&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1CpqeaXyk8%2F#",
+      twitter: "",
+      instagram: "https://www.instagram.com/giana_fashion1?igsh=MWN1dHR5cHc1Njhpag%3D%3D",
+      tiktok: "https://www.tiktok.com/@gyianaturkeywear?_r=1&_t=ZS-9684D9qqNKW",
+      imageUrl: "/assets/images/logo.png",
+      businesshours: {
+        openHour: "08",
+        openMinute: "30",
+        closeHour: "20",
+        closeMinute: "00",
+      },
+      verified: [
+        {
+          accountverified: false,
+          verifieddate: new Date(),
+        },
+      ],
+    };
+
+    const updatedUser = await User.findOneAndUpdate(
+      {
+        $or: [
+          { email: "weargiana@gmail.com" },
+          { clerkId: "user_3DLJQXTxjXqBwsopWRVFPWAdGCM" },
+        ],
+      },
+      { $set: businessInfo },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      throw new Error("Giana Wear user not found");
+    }
+
+    return JSON.parse(JSON.stringify(updatedUser));
+  } catch (error) {
+    handleError(error);
+  }
+}
 export async function createUser(user: CreateUserParams) {
   try {
     await connectToDatabase()

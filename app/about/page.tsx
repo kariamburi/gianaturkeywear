@@ -19,25 +19,16 @@ const About = async () => {
   return (
     <>
       <Head>
-        <title>About Us - Pama Collection</title>
+        <title>About Us - Giana Turkey Wear</title>
         <meta
           name="description"
-          content="Discover more about Pama Collection, your trusted source for high-quality Turkish wear, specializing in ladies' clothing. Learn about our mission, values, and commitment to fashion excellence."
+          content="Discover Giana Turkey Wear, your trusted destination for elegant Turkish fashion, ladies wear, and stylish collections in Kenya."
         />
         <meta
           name="keywords"
-          content="About Pama Collection, Turkish wear, ladies' clothing, high-quality fashion, Pama Collection mission"
+          content="Giana Turkey Wear, Turkish fashion Kenya, ladies wear, elegant fashion, Turkey clothes"
         />
-        <meta name="author" content="Pama Collection" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta property="og:title" content="About Us - Pama Collection" />
-        <meta
-          property="og:description"
-          content="Learn more about Pama Collection, your go-to store for premium Turkish wear and ladies' fashion. Discover our journey and commitment to quality."
-        />
-        <meta property="og:url" content="https://www.pama.co.ke/about" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/asets/images/logo.png" />
+        <meta name="author" content="Giana Turkey Wear" />
       </Head>
 
       <div className="z-10 top-0 fixed w-full">
@@ -52,103 +43,75 @@ const About = async () => {
             <div>
               <div className="max-w-4xl mx-auto p-6 bg-white border rounded-[20px]">
                 <h1 className="text-3xl font-bold text-gray-800 mb-4 text-center">
-                  About Pama Collection
+                  About Giana Turkey Wear
                 </h1>
+
                 <p className="text-gray-700 mb-6">
-                  Welcome to <strong>Pama Collection</strong>, your ultimate
-                  destination for high-quality Turkey wear, specializing in
-                  elegant and stylish ladies&apos; clothing. At Pama Collection,
-                  we are passionate about providing our customers with the best
-                  in fashion, blending modern trends with timeless designs that
-                  make you stand out.
+                  Welcome to <strong>Giana Turkey Wear</strong>, your destination for elegant,
+                  stylish, and high-quality Turkish fashion. We bring you beautiful ladies&apos;
+                  collections designed to make you feel confident, classy, and unique.
                 </p>
+
                 <h2 className="text-2xl font-semibold text-gray-800 mb-3">
                   Our Story
                 </h2>
+
                 <p className="text-gray-700 mb-6">
-                  Founded with a vision to bring unique and premium-quality
-                  clothing to the Kenyan market, Pama Collection has quickly
-                  grown to become a trusted name in ladies&quot fashion. We are
-                  inspired by the beauty and confidence of our customers, and
-                  our carefully curated selection of Turkey wear is designed to
-                  celebrate individuality and style.
+                  Giana Turkey Wear was created to make premium Turkish fashion easily accessible
+                  to customers in Kenya. Our collections are carefully selected for women who
+                  love elegance, comfort, and modern style.
                 </p>
+
                 <h2 className="text-2xl font-semibold text-gray-800 mb-3">
                   What We Offer
                 </h2>
+
                 <ul className="list-disc pl-5 text-gray-700 mb-6">
                   <li>
-                    <strong>Pure Turkey Wear:</strong> A wide range of authentic
-                    and high-quality ladies&apos; outfits directly sourced from
-                    Turkey.
+                    <strong>Elegant Turkish Wear:</strong> Beautiful outfits inspired by modern
+                    Turkish fashion.
                   </li>
                   <li>
-                    <strong>Variety of Styles:</strong> From casual to formal
-                    wear, we have something for every occasion.
+                    <strong>Ladies Collections:</strong> Stylish dresses, casual wear, official
+                    wear, and statement pieces.
                   </li>
                   <li>
-                    <strong>Affordable Prices:</strong> Trendy fashion at prices
-                    that suit your budget.
+                    <strong>Quality Fashion:</strong> Carefully selected items with great fabric,
+                    finishing, and comfort.
                   </li>
                   <li>
-                    <strong>Online Shopping Experience:</strong> Browse our
-                    latest collections on our website,{" "}
-                    <a
-                      href="https://www.pama.co.ke"
-                      className="text-teal-600 underline"
-                    >
-                      www.pama.co.ke
-                    </a>
-                    , and shop from the comfort of your home.
+                    <strong>Easy Shopping:</strong> Browse and shop our latest arrivals online
+                    anytime.
                   </li>
                 </ul>
+
                 <h2 className="text-2xl font-semibold text-gray-800 mb-3">
                   Our Commitment
                 </h2>
+
                 <p className="text-gray-700 mb-6">
-                  At Pama Collection, we believe in:
+                  At Giana Turkey Wear, we are committed to quality, affordability, and excellent
+                  customer service. We want every customer to enjoy a smooth shopping experience
+                  and receive outfits they truly love.
                 </p>
-                <ul className="list-disc pl-5 text-gray-700 mb-6">
-                  <li>
-                    <strong>Customer Satisfaction:</strong> Your happiness is
-                    our priority. We strive to provide excellent service and a
-                    seamless shopping experience.
-                  </li>
-                  <li>
-                    <strong>Quality Assurance:</strong> Each item in our
-                    collection is handpicked to meet the highest quality
-                    standards.
-                  </li>
-                  <li>
-                    <strong>Convenience:</strong> We offer nationwide delivery
-                    to ensure you get your favorite outfits delivered right to
-                    your doorstep.
-                  </li>
-                </ul>
+
                 <h2 className="text-2xl font-semibold text-gray-800 mb-3">
                   Why Choose Us?
                 </h2>
+
                 <p className="text-gray-700 mb-6">
-                  When you shop with Pama Collection, you are choosing a brand
-                  that values quality, style, and affordability. Whether
-                  you&apos;re looking for a chic dress for a party, professional
-                  attire for work, or comfortable casual wear, we&apos;ve got
-                  you covered.
-                </p>
-                <h2 className="text-2xl font-semibold text-gray-800 mb-3">
-                  Contact Us
-                </h2>
-                <p className="text-gray-700">
-                  Do you have questions or need assistance? We are here to help!
+                  We focus on elegant fashion, trusted quality, and carefully curated collections.
+                  Whether you need something classy for work, casual outings, church, events, or
+                  special occasions, Giana Turkey Wear has something beautiful for you.
                 </p>
                 <ul className="list-none pl-0 text-gray-700 mt-4">
                   <li>
                     <strong>Email:</strong>{" "}
                     <a
-                      href="mailto:support@pama.co.ke"
+                      href="mailto:support@gianaturkeywear.co.ke"
                       className="text-teal-600 underline"
                     >
-                      support@pama.co.ke
+                      support@gianaturkeywear.co.ke
                     </a>
                   </li>
                   <li>
