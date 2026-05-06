@@ -166,7 +166,7 @@ export function FileUploader({
             return await applyWatermark(
               file,
               userName.toUpperCase(),
-              "Posted on Pama"
+              "Posted on Giana Turkey Wear"
             );
           } catch (error) {
             console.error("Watermark failed, proceeding without:", error);
