@@ -189,10 +189,10 @@ const Privacy = async () => {
               <p className="mb-6">
                 To exercise these rights, contact us at{" "}
                 <a
-                  href="mailto:weargiana@gmail.com"
+                  href="mailto:support@gianaturkeywear.co.ke"
                   className="text-teal-600 underline"
                 >
-                  weargiana@gmail.com
+                  support@gianaturkeywear.co.ke
                 </a>
                 .
               </p>
@@ -241,7 +241,7 @@ const Privacy = async () => {
                 <li>
                   <b>Email:</b>{" "}
                   <a
-                    href="mailto:weargiana@gmail.com"
+                    href="mailto:support@gianaturkeywear.co.ke"
                     className="text-teal-600 underline"
                   >
                     support@gianaturkeywear.co.ke

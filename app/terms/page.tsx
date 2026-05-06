@@ -250,10 +250,10 @@ const Terms = async () => {
                 <br />
                 Email:{" "}
                 <a
-                  href="mailto:weargiana@gmail.com"
+                  href="mailto:support@gianaturkeywear.co.ke"
                   className="text-teal-600 hover:underline"
                 >
-                  weargiana@gmail.com
+                  support@gianaturkeywear.co.ke
                 </a>
                 <br />
                 Phone: {comp?.phone ?? ""}
