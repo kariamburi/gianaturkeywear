@@ -54,7 +54,7 @@ import {
 } from "../ui/carousel";
 
 
-import { db } from "@/lib/firebase";
+
 import Head from "next/head";
 
 import ShareAd from "./ShareAd";
