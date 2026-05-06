@@ -20,9 +20,10 @@ import { deleteProduct } from "@/lib/actions/ad.product";
 type deleteProps = {
   adId: string;
   imageUrls: string[];
+  onDeleted?: () => void;
 };
 
-export const DeleteConfirmation = ({ adId, imageUrls }: deleteProps) => {
+export const DeleteConfirmation = ({ adId, imageUrls, onDeleted }: deleteProps) => {
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
 
@@ -49,11 +50,15 @@ export const DeleteConfirmation = ({ adId, imageUrls }: deleteProps) => {
             disabled={isPending}
             onClick={() =>
               startTransition(async () => {
-                await deleteProduct({
+                const deleted = await deleteProduct({
                   adId,
                   deleteImages: imageUrls || [],
                   path: pathname,
                 });
+
+                if (deleted) {
+                  onDeleted?.();
+                }
               })
             }
           >

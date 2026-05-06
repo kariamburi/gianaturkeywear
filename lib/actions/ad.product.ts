@@ -48,31 +48,56 @@ if (!admin.apps.length) {
   });
 }
 
-function getFirebaseStoragePath(urlOrPath: string) {
-  if (!urlOrPath) return "";
+function getFirebaseBucketAndPath(urlOrPath: string) {
+  if (!urlOrPath) return { bucketName: "", filePath: "" };
 
   if (!urlOrPath.startsWith("http")) {
-    return decodeURIComponent(urlOrPath);
+    return {
+      bucketName: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "",
+      filePath: decodeURIComponent(urlOrPath),
+    };
   }
 
   const decodedUrl = decodeURIComponent(urlOrPath);
-  const match = decodedUrl.match(/\/o\/(.+?)(\?|$)/);
 
-  return match ? match[1] : "";
+  const bucketMatch = decodedUrl.match(/\/b\/(.+?)\/o\//);
+  const pathMatch = decodedUrl.match(/\/o\/(.+?)(\?|$)/);
+
+  return {
+    bucketName:
+      bucketMatch?.[1] || process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "",
+    filePath: pathMatch?.[1] || "",
+  };
 }
 
 async function deleteFirebaseImage(urlOrPath: string) {
-  const filePath = getFirebaseStoragePath(urlOrPath);
+  try {
+    console.log("Original URL:", urlOrPath);
 
-  if (!filePath) return;
+    const { bucketName, filePath } =
+      getFirebaseBucketAndPath(urlOrPath);
 
-  const bucket = admin.storage().bucket();
+    console.log("Bucket:", bucketName);
+    console.log("File path:", filePath);
 
-  await bucket.file(filePath).delete({
-    ignoreNotFound: true,
-  });
+    if (!bucketName || !filePath) {
+      console.log("Missing bucket or filepath");
+      return;
+    }
+
+    await admin
+      .storage()
+      .bucket(bucketName)
+      .file(filePath)
+      .delete({
+        ignoreNotFound: true,
+      });
+
+    console.log("Firebase image deleted successfully");
+  } catch (error) {
+    console.error("Firebase delete error:", error);
+  }
 }
-
 const populateAd = (query: any) => {
   return query
     .populate({ path: 'organizer', model: User, select: '_id clerkId email firstName lastName photo businessname aboutbusiness businessaddress latitude longitude businesshours businessworkingdays phone whatsapp website facebook twitter instagram tiktok imageUrl verified fcmToken' })
@@ -516,18 +541,33 @@ export async function deleteProduct({
   path,
 }: DeleteProductParams) {
   try {
-    if (deleteImages && deleteImages.length > 0) {
-      await Promise.all(deleteImages.map((image) => deleteFirebaseImage(image)));
-    }
+    console.log("Deleting product:", adId);
+    console.log("Images:", deleteImages);
 
     await connectToDatabase();
 
+    if (deleteImages && deleteImages.length > 0) {
+      await Promise.all(
+        deleteImages.map(async (image) => {
+          console.log("Deleting image:", image);
+          await deleteFirebaseImage(image);
+        })
+      );
+    }
+
+    console.log("Deleting MongoDB product...");
+
     const deletedProduct = await Product.findByIdAndDelete(adId);
 
-    if (deletedProduct) revalidatePath(path);
+    console.log("Deleted product:", deletedProduct?._id);
+
+    if (deletedProduct) {
+      revalidatePath(path);
+    }
 
     return JSON.parse(JSON.stringify(deletedProduct));
   } catch (error) {
+    console.error("Delete product failed:", error);
     handleError(error);
   }
 }

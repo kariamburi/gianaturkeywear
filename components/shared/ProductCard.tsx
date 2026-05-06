@@ -40,6 +40,9 @@ const ProductCard = ({ product, userId, index, trendingStatus }: CardProps) => {
   const isAdCreator = userId === product.organizer._id.toString();
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const [isDeleted, setIsDeleted] = useState(false);
+
+  if (isDeleted) return null;
   const { toast } = useToast();
   const handleOpen = () => {
     setIsOpen(true);
@@ -121,11 +124,9 @@ const ProductCard = ({ product, userId, index, trendingStatus }: CardProps) => {
                 style={{ minHeight: "200px" }}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className={`rounded-t-xl w-full h-auto object-cover ${
-                  isLoadingpopup ? "opacity-0" : "opacity-100"
-                } transition-opacity  transition-transform duration-300 transform ${
-                  hoveredIndex === index ? "scale-105" : ""
-                }`}
+                className={`rounded-t-xl w-full h-auto object-cover ${isLoadingpopup ? "opacity-0" : "opacity-100"
+                  } transition-opacity  transition-transform duration-300 transform ${hoveredIndex === index ? "scale-105" : ""
+                  }`}
                 onLoadingComplete={() => setIsLoadingpopup(false)}
                 placeholder="empty"
               />
@@ -205,7 +206,7 @@ const ProductCard = ({ product, userId, index, trendingStatus }: CardProps) => {
               )}
             </>
           )}
-          {isAdCreator && (
+          {!isAdCreator && (
             <div className="absolute right-2 top-14 flex flex-col gap-4 rounded-xl bg-white p-3 shadow-sm transition-all z-10">
               <div
                 onClick={handleOpen}
@@ -216,6 +217,7 @@ const ProductCard = ({ product, userId, index, trendingStatus }: CardProps) => {
               <DeleteConfirmation
                 adId={product._id}
                 imageUrls={product.imageUrls}
+                onDeleted={() => setIsDeleted(true)}
               />
             </div>
           )}
@@ -250,11 +252,10 @@ const ProductCard = ({ product, userId, index, trendingStatus }: CardProps) => {
                     */}
                   {/* Size Display */}
                   <span
-                    className={`m-1 text-xs justify-center flex items-center w-7 h-7 rounded-full ${
-                      feature.stock > 0
-                        ? "text-white bg-black shadow"
-                        : "line-through text-gray-500 border"
-                    }`}
+                    className={`m-1 text-xs justify-center flex items-center w-7 h-7 rounded-full ${feature.stock > 0
+                      ? "text-white bg-black shadow"
+                      : "line-through text-gray-500 border"
+                      }`}
                   >
                     {feature.size}
                   </span>
