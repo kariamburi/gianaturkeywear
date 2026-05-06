@@ -35,7 +35,6 @@ import {
 import { Model } from 'mongoose'
 import { ObjectId } from 'mongodb'
 import Product from '../database/models/product.model'
-import { getStorage } from "firebase-admin/storage";
 import admin from "firebase-admin";
 
 if (!admin.apps.length) {
@@ -53,12 +52,11 @@ function getFirebaseStoragePath(urlOrPath: string) {
   if (!urlOrPath) return "";
 
   if (!urlOrPath.startsWith("http")) {
-    return urlOrPath;
+    return decodeURIComponent(urlOrPath);
   }
 
   const decodedUrl = decodeURIComponent(urlOrPath);
-
-  const match = decodedUrl.match(/\/o\/(.+?)\?/);
+  const match = decodedUrl.match(/\/o\/(.+?)(\?|$)/);
 
   return match ? match[1] : "";
 }
@@ -68,12 +66,13 @@ async function deleteFirebaseImage(urlOrPath: string) {
 
   if (!filePath) return;
 
-  const bucket = getStorage().bucket();
+  const bucket = admin.storage().bucket();
 
   await bucket.file(filePath).delete({
     ignoreNotFound: true,
   });
 }
+
 const populateAd = (query: any) => {
   return query
     .populate({ path: 'organizer', model: User, select: '_id clerkId email firstName lastName photo businessname aboutbusiness businessaddress latitude longitude businesshours businessworkingdays phone whatsapp website facebook twitter instagram tiktok imageUrl verified fcmToken' })
