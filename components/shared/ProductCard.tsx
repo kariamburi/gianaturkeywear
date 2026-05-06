@@ -42,7 +42,6 @@ const ProductCard = ({ product, userId, index, trendingStatus }: CardProps) => {
   const pathname = usePathname();
   const [isDeleted, setIsDeleted] = useState(false);
 
-  if (isDeleted) return null;
   const { toast } = useToast();
   const handleOpen = () => {
     setIsOpen(true);
@@ -97,6 +96,7 @@ const ProductCard = ({ product, userId, index, trendingStatus }: CardProps) => {
   const handleZoomChange = useCallback((shouldZoom: any) => {
     setIsZoomed(shouldZoom);
   }, []);
+  if (isDeleted) return null;
   return (
     <>
       <div
@@ -206,7 +206,7 @@ const ProductCard = ({ product, userId, index, trendingStatus }: CardProps) => {
               )}
             </>
           )}
-          {!isAdCreator && (
+          {isAdCreator && (
             <div className="absolute right-2 top-14 flex flex-col gap-4 rounded-xl bg-white p-3 shadow-sm transition-all z-10">
               <div
                 onClick={handleOpen}
