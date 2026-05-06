@@ -86,43 +86,59 @@ export const ProductForm = ({
     return generatedSku; // Simple example SKU
   }
   async function onSubmit(values: ProductFormData) {
-    uploadedImageUrl = values.imageUrls;
+    try {
+      let uploadedImageUrl: string[] = Array.isArray(values.imageUrls)
+        ? [...values.imageUrls]
+        : [];
 
-    if (files.length > 0) {
-      // Upload all files concurrently
+      console.log("Selected files:", files);
 
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        try {
-          const url = await uploadProductImageToFirebase(file, userId, (progress) => {
-            const totalProgress = Math.round(
-              ((i + progress / 100) / files.length) * 100
-            );
+      if (files.length > 0) {
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
 
-            setUploadProgress(totalProgress);
-          });
+          console.log("Uploading file:", file.name, file.type, file.size);
+
+          const url = await uploadProductImageToFirebase(
+            file,
+            userId,
+            (progress) => {
+              const totalProgress = Math.round(
+                ((i + progress / 100) / files.length) * 100
+              );
+              setUploadProgress(totalProgress);
+            }
+          );
+
+          console.log("Uploaded URL:", url);
+
+          if (!url) {
+            throw new Error("Image upload failed. No URL returned.");
+          }
 
           uploadedImageUrl.push(url);
-        } catch (error) {
-          console.error("Error uploading file:", error);
         }
       }
-    }
-    if (type === "Create") {
+
       uploadedImageUrl = uploadedImageUrl.filter(
-        (url) => !url.includes("blob:")
+        (url) => url && !url.includes("blob:")
       );
-      try {
+
+      console.log("Final image URLs:", uploadedImageUrl);
+
+      if (type === "Create") {
         const newProduct = await createProduct({
           product: {
             ...values,
             price: parseCurrencyToNumber(form.getValues("price").toString()),
+            buyprice: parseCurrencyToNumber(form.getValues("buyprice").toString()),
             imageUrls: uploadedImageUrl,
             sku: generateSku(),
           },
           userId,
           path: pathname,
         });
+
         if (newProduct) {
           form.reset();
           setSelectedType(null);
@@ -130,55 +146,28 @@ export const ProductForm = ({
           setSelectedKidsCategory(null);
           setItemOptions([]);
           setFiles([]);
+          setUploadProgress(0);
+
           toast({
-            title: "Submited!",
+            title: "Submitted!",
             description: "Product created successfully",
             duration: 5000,
             className: "bg-[#30AF5B] text-white",
           });
+
           router.push(pathname);
-          //  router.push(`/home/${newProduct._id}`);
         }
-      } catch (error) {
-        console.log(error);
       }
-    } else if (type === "Update") {
-      try {
-        if (!productId) {
-          router.back();
-          return;
-        }
-        uploadedImageUrl = uploadedImageUrl.filter(
-          (url) => !url.includes("blob:")
-        );
+    } catch (error: any) {
+      console.error("Product submit error:", error);
 
-        const updatedProduct = await updateProduct({
-          userId,
-          product: {
-            ...values,
-            price: parseCurrencyToNumber(form.getValues("price").toString()),
-            imageUrls: uploadedImageUrl,
-            _id: productId,
-          },
-          path: pathname,
-        });
-
-        if (updatedProduct) {
-          form.reset();
-          // router.push(`/home/${updatedProduct._id}`);
-          toast({
-            title: "Updated!",
-            description: "Product details updated successfully",
-            duration: 5000,
-            className: "bg-[#30AF5B] text-white",
-          });
-          router.push(`/home/`);
-        }
-      } catch (error) {
-        console.log(error);
-      }
+      toast({
+        title: "Upload failed",
+        description: error?.message || "Failed to upload product image",
+        duration: 5000,
+        className: "bg-red-600 text-white",
+      });
     }
-    // console.log(values);
   }
   const [newSize, setNewSize] = useState(""); // Define newSize as a state variable
 

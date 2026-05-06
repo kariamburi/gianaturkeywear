@@ -51,11 +51,13 @@ import { RemoveCategory } from "@/components/shared/RemoveCategory";
 import { seedUsers } from "@/lib/actions/seedUsers";
 
 export default async function Home({ searchParams }: SearchParamProps) {
-  const { sessionClaims } = auth();
-  const userId = sessionClaims?.userId as string;
-  const userName = sessionClaims?.userName as string;
-  const userImage = sessionClaims?.userImage as string;
-
+  // const { sessionClaims } = auth();
+  // const userId = sessionClaims?.userId as string;
+  //const userName = sessionClaims?.userName as string;
+  // const userImage = sessionClaims?.userImage as string;
+  const userId = "69faf8e90ef15270faadd1ee";
+  const userName = "Regina";
+  const userImage = "Wothaya";
   const page = Number(searchParams?.page) || 1;
 
   const searchText = (searchParams?.query as string) || "";
