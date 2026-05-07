@@ -11,7 +11,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "PGiana Turkey Wear",
+  title: "Giana Turkey Wear",
   description: "Giana Turkey Wear | Buy Pure Turkey Ware in Kenya",
   icons: {
     icon: "/assets/images/logo.png",
