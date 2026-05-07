@@ -628,7 +628,7 @@ export const ProductAddCart = ({ product, userId }: productProps) => {
                           />
                           <div>
                             <h2 className="text-[10px] text-gray-700">
-                              Pama-Turkey
+                              Giana-Turkey
                             </h2>
                             <p className="text-xs">{`${product.productName}`}</p>
                             <p className="text-gray-500 text-xs">
@@ -878,7 +878,7 @@ export const ProductAddCart = ({ product, userId }: productProps) => {
                         />
                         <div>
                           <h2 className="text-[10px] text-gray-700">
-                            Pama-Turkey
+                            Giana-Turkey
                           </h2>
                           <p className="text-xs">{`${product.productName}`}</p>
                           <p className="text-gray-500 text-xs">

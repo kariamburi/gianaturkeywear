@@ -20,7 +20,7 @@ interface ShareProps {
 const ShareAd: React.FC<ShareProps> = ({ product }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const shareUrl = `https://www.pama.co.ke/product/${product._id}`;
+  const shareUrl = `https://www.gianaturkeywear.co.ke/product/${product._id}`;
   const shareTitle = `${product.productName}, Price: Ksh ${(
     product.price -
     (product.price * Number(product.discount ?? 0)) / 100
@@ -64,7 +64,7 @@ const ShareAd: React.FC<ShareProps> = ({ product }) => {
         <meta property="og:image" content={imageUrl} />
         <meta property="og:url" content={shareUrl} />
         <meta property="og:type" content="article" />
-        <meta property="og:site_name" content="Pama" />
+        <meta property="og:site_name" content="Giana" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={product.productName} />
         <meta name="twitter:description" content={product.description} />
