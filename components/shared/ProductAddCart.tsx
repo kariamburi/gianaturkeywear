@@ -264,37 +264,39 @@ export const ProductAddCart = ({ product, userId }: productProps) => {
                       alt={product.productName}
                       className="rounded-lg max-h-[600px] shadow-lg"
                     />*/}
-                {product.imageUrls.map((url: string, index: number) => (
-                  <div
-                    className="relative w-full h-[600px] bg-gray-100 rounded-lg overflow-hidden"
-                    key={index}
-                  >
-                    {isLoadingpopup && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-10">
-                        <CircularProgress sx={{ color: "black" }} />
-                      </div>
-                    )}
+                <div
+                  className={`${product.imageUrls.length === 1
+                    ? "w-full lg:w-[520px] flex items-center justify-center p-2 rounded-xl"
+                    : "grid grid-cols-2 gap-4"
+                    }`}
+                >
+                  {product.imageUrls.map((url: string, index: number) => (
+                    <div
+                      className="relative w-full max-w-[520px] h-[650px] bg-gray-100 rounded-lg overflow-hidden"
+                      key={index}
+                    >
+                      {isLoadingpopup && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-10">
+                          <CircularProgress sx={{ color: "black" }} />
+                        </div>
+                      )}
 
-                    <Zoom>
-                      <Image
-                        src={url || "/placeholder-image.png"}
-                        alt={product.productName || "Product image"}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 60vw"
-                        className={`rounded-lg shadow-lg object-cover transition-opacity duration-300 ${isLoadingpopup ? "opacity-0" : "opacity-100"
-                          } ${hoveredIndex === index ? "scale-105" : ""}`}
-                        onLoad={() => setIsLoadingpopup(false)}
-                        onError={() => {
-                          console.log("Product detail image failed:", url);
-                          setIsLoadingpopup(false);
-                        }}
-                        unoptimized
-                        onMouseEnter={() => setHoveredIndex(index)}
-                        onMouseLeave={() => setHoveredIndex(null)}
-                      />
-                    </Zoom>
-                  </div>
-                ))}
+                      <Zoom>
+                        <Image
+                          src={url || "/placeholder-image.png"}
+                          alt={product.productName || "Product image"}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 520px"
+                          className={`rounded-lg shadow-lg object-contain transition-opacity duration-300 ${isLoadingpopup ? "opacity-0" : "opacity-100"
+                            }`}
+                          onLoad={() => setIsLoadingpopup(false)}
+                          onError={() => setIsLoadingpopup(false)}
+                          unoptimized
+                        />
+                      </Zoom>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* Product Name and Description */}
