@@ -265,26 +265,32 @@ export const ProductAddCart = ({ product, userId }: productProps) => {
                       className="rounded-lg max-h-[600px] shadow-lg"
                     />*/}
                 {product.imageUrls.map((url: string, index: number) => (
-                  <div className="relative" key={index}>
+                  <div
+                    className="relative w-full h-[600px] bg-gray-100 rounded-lg overflow-hidden"
+                    key={index}
+                  >
                     {isLoadingpopup && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-t-xl ">
-                        {/* Spinner or loading animation */}
+                      <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-10">
                         <CircularProgress sx={{ color: "black" }} />
                       </div>
                     )}
+
                     <Zoom>
                       <Image
-                        src={product.imageUrls[0] || "/placeholder-image.png"}
-                        alt={product.productName}
-                        width={400}
-                        height={400}
+                        src={url || "/placeholder-image.png"}
+                        alt={product.productName || "Product image"}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 60vw"
+                        className={`rounded-lg shadow-lg object-cover transition-opacity duration-300 ${isLoadingpopup ? "opacity-0" : "opacity-100"
+                          } ${hoveredIndex === index ? "scale-105" : ""}`}
+                        onLoad={() => setIsLoadingpopup(false)}
+                        onError={() => {
+                          console.log("Product detail image failed:", url);
+                          setIsLoadingpopup(false);
+                        }}
+                        unoptimized
                         onMouseEnter={() => setHoveredIndex(index)}
                         onMouseLeave={() => setHoveredIndex(null)}
-                        className={`rounded-lg max-h-[600px] shadow-lg object-cover w-full ${isLoadingpopup ? "opacity-0" : "opacity-100"
-                          } transition-opacity  transition-transform duration-300 transform ${hoveredIndex === index ? "scale-105" : ""
-                          }`}
-                        onLoadingComplete={() => setIsLoadingpopup(false)}
-                        placeholder="empty"
                       />
                     </Zoom>
                   </div>
