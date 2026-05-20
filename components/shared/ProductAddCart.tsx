@@ -259,11 +259,7 @@ export const ProductAddCart = ({ product, userId }: productProps) => {
                   : "grid grid-cols-2 gap-4"
                   }`}
               >
-                {/*   <img
-                      src={url}
-                      alt={product.productName}
-                      className="rounded-lg max-h-[600px] shadow-lg"
-                    />*/}
+
                 <div
                   className={`${product.imageUrls.length === 1
                     ? "w-full lg:w-[520px] flex items-center justify-center p-2 rounded-xl"

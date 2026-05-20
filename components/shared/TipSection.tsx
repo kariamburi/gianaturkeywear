@@ -46,7 +46,7 @@ const TipSection = ({
             className="w-4 h-4"
           />
           <span className="text-sm font-medium">
-            Show your support for the team at PAMA
+            Show your support for the team at Giana Turkey Wear
           </span>
         </label>
 
@@ -62,9 +62,8 @@ const TipSection = ({
                     const calculatedTip = calculateTip(tip); // Calculate tip based on current selection
                     onClick(calculatedTip); // Pass the calculated tip to the parent component
                   }}
-                  className={`border p-2 rounded-md ${
-                    selectedTip === tip ? "bg-black text-white" : ""
-                  }`}
+                  className={`border p-2 rounded-md ${selectedTip === tip ? "bg-black text-white" : ""
+                    }`}
                 >
                   {tip}
                   {selectedTip === tip && (
@@ -82,9 +81,8 @@ const TipSection = ({
       </div>
       <button
         onClick={() => handlePayNow()}
-        className={`hidden lg:inline bg-black mt-2 cursor-pointer w-full py-4 px-1 font-bold rounded-sm text-white h-full hover:bg-gray-800 ${
-          isSending ? "bg-gray-800" : "bg-black"
-        }`}
+        className={`hidden lg:inline bg-black mt-2 cursor-pointer w-full py-4 px-1 font-bold rounded-sm text-white h-full hover:bg-gray-800 ${isSending ? "bg-gray-800" : "bg-black"
+          }`}
         disabled={isSending} // Disable button while sending
       >
         <div className="flex gap-1 items-center justify-center w-full">

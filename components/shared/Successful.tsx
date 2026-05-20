@@ -44,14 +44,14 @@ const Successful = ({ comp, orders }: MobileProps) => {
             </p>
             <p className="text-xs lg:text-base text-gray-600">
               Website:{" "}
-              <a href="https://www.pama.co.ke" className="text-blue-600">
-                www.pama.co.ke
+              <a href="https://www.gianaturkeywear.co.ke" className="text-blue-600">
+                www.gianaturkeywear.co.ke
               </a>
             </p>
             <p className="text-xs lg:text-base text-gray-600">
               Email:{" "}
-              <a href="mailto:support@pama.co.ke" className="text-blue-600">
-                support@pama.co.ke
+              <a href="mailto:support@gianaturkeywear.co.ke" className="text-blue-600">
+                support@gianaturkeywear.co.ke
               </a>
             </p>
           </div>
