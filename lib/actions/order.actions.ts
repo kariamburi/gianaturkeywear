@@ -100,67 +100,40 @@ export const createOrder = async ({ order, path }: CreateOrderParams) => {
 
 export const ProductSold = async ({ order, path }: CreateOrderParams) => {
   try {
-    // Connect to the database
     await connectToDatabase();
-    // console.log("order; "+order)
-    // Define query conditions to check for existing orders
-    const conditions = {
-      $and: [
-        { productId: order.productId },
-        { userId: order.userId },
-        { size: order.size },
-        { status: { $in: ["completed", "successful"] } }, // Match completed or successful status
-      ],
-    };
-    // Find an existing order matching the conditions
-    const existingOrder = await Order.findOne(conditions);
-    // console.log("existingOrder: "+existingOrder)
-    // Declare variables for new order and response message
-    let newOrder;
-    let response = "Order already exists";
 
-    // Create a new order or update the existing one
-    if (!existingOrder) {
-      newOrder = await Order.create({ ...order });
-      response = "Order Created";
-      // console.log("newOrder: "+newOrder)
-      const { productId, size, qty } = newOrder;
-      const product = await Product.findById(productId);
-      if (!product) {
-        throw new Error("Product not found");
-      }
+    const qty = Number(order.qty || 1);
 
-      // Step 4: Update the stock for the specific size in the features array
-      const featureIndex = product.features.findIndex(
-        (feature: any) => feature.size === size
-      );
-      if (featureIndex === -1) {
-        throw new Error(`Size ${size} not found in product features`);
-      }
+    const product = await Product.findOneAndUpdate(
+      {
+        _id: order.productId,
+        features: {
+          $elemMatch: {
+            size: String(order.size),
+            stock: { $gte: qty },
+          },
+        },
+      },
+      {
+        $inc: {
+          "features.$.stock": -qty,
+        },
+      },
+      { new: true }
+    );
 
-      // Subtract the quantity sold
-      product.features[featureIndex].stock -= qty;
-
-      // Ensure stock does not go negative
-      if (product.features[featureIndex].stock < 0) {
-        throw new Error(
-          `Insufficient stock for size ${size}. Current stock: ${product.features[featureIndex].stock + qty}`
-        );
-      }
-
-      // Step 5: Save the updated product
-      await product.save();
+    if (!product) {
+      throw new Error(`Insufficient stock or size ${order.size} not found`);
     }
 
-    // Revalidate the path for Next.js caching
-    await revalidatePath(path);
+    await Order.create({ ...order });
 
-    // Return the response message
-    return response;
+    revalidatePath(path);
+
+    return "Order Created";
   } catch (error) {
-    // Handle errors gracefully
-    handleError(error);
-    throw new Error("Failed to create or update order");
+    console.error("ProductSold error:", error);
+    throw new Error("Failed to mark product as sold");
   }
 };
 

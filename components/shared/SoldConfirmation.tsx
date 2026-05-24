@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -33,6 +33,7 @@ export const SoldConfirmation = ({
   product,
   onStockUpdate,
 }: soldProps) => {
+  const router = useRouter();
   const pathname = usePathname();
   const [instock, setInstock] = useState(initialStock);
   const [soldPrice, setSoldPrice] = useState(""); // New state for sold price
@@ -66,9 +67,11 @@ export const SoldConfirmation = ({
     });
 
     if (response === "Order Created") {
-      const newStock = instock - quantity;
+      const newStock = Math.max(0, instock - quantity);
+
       setInstock(newStock);
       onStockUpdate(selectedSize, newStock);
+      router.refresh();
     }
   };
 
