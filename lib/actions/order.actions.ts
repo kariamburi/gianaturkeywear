@@ -97,7 +97,61 @@ export const createOrder = async ({ order, path }: CreateOrderParams) => {
     throw new Error("Failed to create or update order");
   }
 };
+export const reverseProductSold = async ({
+  orderId,
+  path,
+}: {
+  orderId: string;
+  path: string;
+}) => {
+  try {
+    await connectToDatabase();
 
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      throw new Error("Order not found");
+    }
+
+    if (order.status === "returned") {
+      throw new Error("This order has already been reversed");
+    }
+
+    if (order.status !== "completed") {
+      throw new Error("Only completed sold orders can be reversed");
+    }
+
+    const qty = Number(order.qty || 1);
+
+    const product = await Product.findOneAndUpdate(
+      {
+        _id: order.productId,
+        "features.size": String(order.size),
+      },
+      {
+        $inc: {
+          "features.$.stock": qty,
+        },
+      },
+      { new: true }
+    );
+
+    if (!product) {
+      throw new Error(`Product size ${order.size} not found`);
+    }
+
+    order.status = "returned";
+    order.returnedAt = new Date();
+    await order.save();
+
+    revalidatePath(path);
+
+    return "Order Reversed";
+  } catch (error) {
+    console.error("reverseProductSold error:", error);
+    throw new Error("Failed to reverse sold order");
+  }
+};
 export const ProductSold = async ({ order, path }: CreateOrderParams) => {
   try {
     await connectToDatabase();

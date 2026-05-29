@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import {
   deleteOrder,
+  reverseProductSold,
   updateDispatchedOrders,
   updatePendingOrdersToSuccessful,
 } from "@/lib/actions/order.actions";
@@ -57,7 +58,28 @@ const CollectionOrder = ({
   const closeModal = () => {
     setSelectedOrder(null); // Close the modal
   };
+  const handleReverseSold = async (_id: string) => {
+    try {
+      await reverseProductSold({
+        orderId: _id,
+        path: pathname,
+      });
 
+      toast({
+        title: "Reversed",
+        description: "Product returned and stock restored",
+        duration: 5000,
+        className: "bg-[#30AF5B] text-white",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error?.message || "Failed to reverse sold order",
+        duration: 5000,
+        className: "bg-red-600 text-white",
+      });
+    }
+  };
   return (
     <div>
       <div className="flex flex-row gap-2 items-end border-t p-2">
@@ -193,6 +215,22 @@ const CollectionOrder = ({
                         </Tooltip>
                       </TooltipProvider>
                     )}
+                    {order.status === "returned" && (
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <div className="cursor-pointer flex text-xs items-center justify-center text-black bg-red-200 p-1 rounded-sm">
+                              Returned
+                            </div>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <div className="flex gap-1 text-sm">
+                              Product was returned and stock restored.
+                            </div>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    )}
                   </td>
                   <td className="border p-2">
                     {new Date(order.createdAt).toLocaleDateString()}
@@ -214,6 +252,18 @@ const CollectionOrder = ({
                           <DeleteOutlineOutlinedIcon />
                         </button>
                       </>
+                    )}
+                    {order.status === "completed" && (
+                      <button
+                        onClick={() => {
+                          if (confirm("Reverse this sold order and restore stock?")) {
+                            handleReverseSold(order._id);
+                          }
+                        }}
+                        className="mt-1 bg-red-100 text-red-700 px-3 py-1 rounded-lg text-xs cursor-pointer hover:bg-red-200"
+                      >
+                        Reverse
+                      </button>
                     )}
                   </td>
                 </tr>
